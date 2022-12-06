@@ -49,7 +49,14 @@ app.post("/api/users/:_id/exercises", async (req, res) => {
     if (user.name === "CastError") res.json({ error: "User NOT FOUND" });
 
     const { username, _id: userId } = user;
-    const newExercise = new Exercise({ userId, description, duration, date });
+    const finalDate = date ? date : Date.now();
+
+    const newExercise = new Exercise({
+      userId,
+      description,
+      duration,
+      date: finalDate,
+    });
 
     user.exercises.push(newExercise);
 
